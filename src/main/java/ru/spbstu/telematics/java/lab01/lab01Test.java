@@ -1,8 +1,7 @@
 package ru.spbstu.telematics.java.lab01;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class lab01Test {
@@ -24,19 +23,19 @@ public class lab01Test {
   public void readMatrixSuccessfully() {
     int[][] actual = lab01.readMatrixB(existentFile);
 
-    assertEquals(matrix.length, actual.length);
-    assertArrayEquals(matrix[0], actual[0]);
+    Assert.assertEquals(matrix.length, actual.length);
+    Assert.assertArrayEquals(matrix[0], actual[0]);
   }
 
   @Test
   public void readMatrixUnsuccessfully() {
-    assertNull(lab01.readMatrixB(nonExistentFile));
+    Assert.assertNull(lab01.readMatrixB(nonExistentFile));
   }
 
   @Test
   public void calculateSum() {
     int[][] actual = lab01.calculateSum(matrix);
 
-    assertArrayEquals(result[result.length-1], actual[actual.length-1]);
+    Assert.assertArrayEquals(result[result.length-1], actual[actual.length-1]);
   }
 }

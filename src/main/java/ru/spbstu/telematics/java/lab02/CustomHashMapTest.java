@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import ru.spbstu.telematics.java.lab02.CustomHashMap.Entry;
@@ -27,11 +28,11 @@ public class CustomHashMapTest {
   public void putAndGetTest() {
     emptyMap.put(12, "twelve");
     emptyMap.put(13, "thirtheen");
-    assertEquals("New value put incorrectly!","twelve", emptyMap.get(12));
+    Assert.assertEquals("New value put incorrectly!","twelve", emptyMap.get(12));
 
     emptyMap.put(14, "wrong value");
     emptyMap.put(14, "fourteen");
-    assertEquals("Value hasn't changed!","fourteen", emptyMap.get(14));
+    Assert.assertEquals("Value hasn't changed!","fourteen", emptyMap.get(14));
   }
 
   @Test(expected = RuntimeException.class)
@@ -44,8 +45,8 @@ public class CustomHashMapTest {
     Boolean actualRight = fullMap.containsKey("number1");
     Boolean actualWrong = fullMap.containsKey("nonexistent");
 
-    assertTrue("containsKey() is incorrect!", actualRight);
-    assertFalse("containsKey() is incorrect!", actualWrong);
+    Assert.assertTrue("containsKey() is incorrect!", actualRight);
+    Assert.assertFalse("containsKey() is incorrect!", actualWrong);
   }
 
   @Test
@@ -53,8 +54,8 @@ public class CustomHashMapTest {
     Boolean actualRight = fullMap.containsValue(1);
     Boolean actualWrong = fullMap.containsValue(100);
 
-    assertTrue("containsValue() is incorrect!", actualRight);
-    assertFalse("containsValue() is incorrect!", actualWrong);
+    Assert.assertTrue("containsValue() is incorrect!", actualRight);
+    Assert.assertFalse("containsValue() is incorrect!", actualWrong);
   }
 
   @Test
@@ -62,19 +63,19 @@ public class CustomHashMapTest {
     fullMap.remove("number3");
     Boolean actual = fullMap.containsKey("number3");
 
-    assertFalse("remove() is incorrect!", actual);
+    Assert.assertFalse("remove() is incorrect!", actual);
   }
 
   @Test
   public void getSizeTest() {
     int actual = fullMap.getSize();
-    assertEquals("size() is incorrect!",4, actual);
+    Assert.assertEquals("size() is incorrect!",4, actual);
   }
 
   @Test
   public void isEmptyTest() {
-    assertTrue("isEmpy() is incorrect!", emptyMap.isEmpty());
-    assertFalse("isEmpy() is incorrect!",fullMap.isEmpty());
+    Assert.assertTrue("isEmpy() is incorrect!", emptyMap.isEmpty());
+    Assert.assertFalse("isEmpy() is incorrect!",fullMap.isEmpty());
   }
 
   @Test
@@ -83,6 +84,6 @@ public class CustomHashMapTest {
     for (Iterator<CustomHashMap.Entry> iter = fullMap.iterator(); iter.hasNext(); ) {
       element = iter.next();
     }
-    assertTrue(element.getValue().equals(fullMap.get("number1")));
+    Assert.assertTrue(element.getValue().equals(fullMap.get("number1")));
   }
 }
