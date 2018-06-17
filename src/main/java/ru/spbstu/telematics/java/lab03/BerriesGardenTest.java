@@ -8,7 +8,7 @@ import org.junit.Test;
 public class BerriesGardenTest {
 
   private int initialBerriesCount = 300;
-  BerriesGarden garden = new BerriesGarden(initialBerriesCount);
+  private BerriesGarden garden = new BerriesGarden(initialBerriesCount, 1L);
 
   @Before
   public void SetUp() throws InterruptedException {
@@ -24,9 +24,10 @@ public class BerriesGardenTest {
 
   @Test
   public void testIfCheating(){
-    System.out.println("Pinkey's result: " + garden.pinkeysBusket);
-    System.out.println("Brain's result: " + garden.brainsBusket);
-    assertTrue("Neighbours are cheating!", Math.abs(garden.pinkeysBusket - garden.brainsBusket) < initialBerriesCount/3);
+    System.out.println("Pinkey's result: " + garden.getPinkeysBusket());
+    System.out.println("Brain's result: " + garden.getBrainsBusket());
+    assertTrue("Neighbours are cheating!",
+        Math.abs(garden.getPinkeysBusket() - garden.getBrainsBusket()) < initialBerriesCount/3);
   }
 
 }

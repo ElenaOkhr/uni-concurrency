@@ -5,8 +5,8 @@ import java.util.NoSuchElementException;
 
 public class CustomHashMap<K, V> implements Iterable {
 
-  static final int DEFAULT_INITIAL_CAPACITY = 4;
-  static final int MAXIMUM_CAPACITY = 16;
+  private static final int DEFAULT_INITIAL_CAPACITY = 4;
+  private static final int MAXIMUM_CAPACITY = 16;
 
   private Entry<K, V>[] table;
   private int size = 0;
@@ -111,6 +111,21 @@ public class CustomHashMap<K, V> implements Iterable {
     return h & (capacity - 1);
   }
 
+  @Override
+  public String toString() {
+    StringBuilder string = new StringBuilder();
+    string.append('{');
+    for (int i = 0; i < table.length; i++) {
+      Entry entry = table[i];
+      if (entry != null) {
+        if (i != 0) { string.append(", "); }
+        string.append(entry);
+      }
+    }
+    string.append('}');
+    return string.toString();
+  }
+
   class Entry<K, V> {
 
     private K key;
@@ -135,10 +150,7 @@ public class CustomHashMap<K, V> implements Iterable {
 
     @Override
     public String toString() {
-      return "Entry{" +
-          "key=" + key +
-          ", value=" + value +
-          '}';
+      return key + "=" + value;
     }
   }
 

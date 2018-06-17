@@ -1,10 +1,11 @@
 package ru.spbstu.telematics.java.lab02;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,7 @@ public class CustomHashMapTest {
   private int capacity = 6;
   CustomHashMap<Integer, String> emptyMap = new CustomHashMap<>(capacity);
   CustomHashMap<String, Integer> fullMap = new CustomHashMap<>();
+  Map<Integer, String> trueMap = new HashMap<>(capacity);
 
   @Before
   public void setUp() throws Exception {
@@ -22,6 +24,27 @@ public class CustomHashMapTest {
     fullMap.put("number2", 2);
     fullMap.put("number3", 3);
     fullMap.put("number4", 4);
+  }
+
+  @Test
+  public void compareTest(){
+    emptyMap.put(1,"one");
+    trueMap.put(1,"one");
+
+    emptyMap.put(2,"two");
+    trueMap.put(2,"two");
+
+    emptyMap.remove(1);
+    trueMap.remove(1);
+
+    assertEquals(emptyMap.getSize(), trueMap.size());
+    assertEquals(emptyMap.containsValue("one"), trueMap.containsValue("one"));
+
+    emptyMap.put(2,"new value");
+    trueMap.put(2,"new value");
+
+    assertEquals(emptyMap.get(2), trueMap.get(2));
+
   }
 
   @Test

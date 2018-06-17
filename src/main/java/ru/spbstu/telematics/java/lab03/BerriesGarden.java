@@ -5,14 +5,12 @@ import java.util.concurrent.TimeUnit;
 
 public class BerriesGarden {
 
-  int berriesCount;
-  boolean flag;
-  int pinkeysBusket;
-  int brainsBusket;
-
-  public BerriesGarden(int berriesCount) {
-    this.berriesCount = berriesCount;
-  }
+  private boolean flag;
+  private int berriesCount;
+  private long pause;
+  private int pinkeysBusket;
+  private int brainsBusket;
+  private int tryingCount;
 
   Runnable goingForBerries = () -> {
     while (berriesCount > 0) {
@@ -20,9 +18,9 @@ public class BerriesGarden {
         if (!flag) {
           takingBerries();
         } else {
-          System.out.println("Neighbour checked the flag");
+          System.out.println("Neighbour checked the flag " + ++tryingCount + " time");
         }
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(pause);
       } catch (InterruptedException e) {
         System.out.println("Ooops, something went wrong!");
       }
@@ -35,18 +33,38 @@ public class BerriesGarden {
     System.out.println("In the garden " + threadName);
 
     int maxBerriesToTake = (int) Math.floor(berriesCount >> 1);
-    int currentProgress = maxBerriesToTake == 0 ? 1 : 1 + new Random().nextInt(maxBerriesToTake);
-    TimeUnit.SECONDS.sleep(currentProgress / 100);
+    int possibleProgress = maxBerriesToTake == 0 ? 1 : 1 + new Random().nextInt(maxBerriesToTake);
 
-    berriesCount -= currentProgress;
-    if (threadName.contains("Brain")) {
-      brainsBusket += currentProgress;
-    } else {
-      pinkeysBusket += currentProgress;
+    int progress = 0;
+    while (progress < possibleProgress && tryingCount < 2) {
+      TimeUnit.MILLISECONDS.sleep(20*pause);
+      progress++;
     }
-
-    System.out.println(threadName + " out of the garden with " + currentProgress + " berries");
+    countBerries(threadName, progress);
+    System.out.println(threadName + " out of the garden with " + progress + " berries");
+    tryingCount = 0;
     flag = false;
   }
 
+  private void countBerries(String threadName, int progress) {
+    berriesCount -= progress;
+    if (threadName.contains("Brain")) {
+      brainsBusket += progress;
+    } else {
+      pinkeysBusket += progress;
+    }
+  }
+
+  public BerriesGarden(int berriesCount, long pause) {
+    this.berriesCount = berriesCount;
+    this.pause = pause;
+  }
+
+  public int getPinkeysBusket() {
+    return pinkeysBusket;
+  }
+
+  public int getBrainsBusket() {
+    return brainsBusket;
+  }
 }
