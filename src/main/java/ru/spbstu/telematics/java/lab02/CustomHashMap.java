@@ -2,6 +2,7 @@ package ru.spbstu.telematics.java.lab02;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class CustomHashMap<K, V> implements Iterable {
 
@@ -21,7 +22,7 @@ public class CustomHashMap<K, V> implements Iterable {
   }
 
   public V put(K key, V value) {
-    if (size == table.length) {
+    if (size >= table.length) {
       throw new RuntimeException("Exceding maximum capacity");
     }
 
@@ -151,6 +152,25 @@ public class CustomHashMap<K, V> implements Iterable {
     @Override
     public String toString() {
       return key + "=" + value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (!(o instanceof Entry)) {
+        return false;
+      }
+      Entry<?, ?> entry = (Entry<?, ?>) o;
+      return Objects.equals(getKey(), entry.getKey()) &&
+          Objects.equals(getValue(), entry.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+
+      return Objects.hash(getKey(), getValue());
     }
   }
 
