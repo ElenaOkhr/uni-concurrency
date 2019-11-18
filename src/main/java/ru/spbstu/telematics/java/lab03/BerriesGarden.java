@@ -3,7 +3,9 @@ package ru.spbstu.telematics.java.lab03;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class BerriesGarden {
+//TODO: rewrite using different concurrency features
+//TODO: add readme
+class BerriesGarden {
 
   private boolean flag;
   private int berriesCount;
@@ -55,16 +57,16 @@ public class BerriesGarden {
     }
   }
 
-  public BerriesGarden(int berriesCount, long pause) {
+  BerriesGarden(int berriesCount, long pause) {
     this.berriesCount = berriesCount;
     this.pause = pause;
   }
 
-  public int getPinkeysBusket() {
+  int getPinkeysBusket() {
     return pinkeysBusket;
   }
 
-  public int getBrainsBusket() {
+  int getBrainsBusket() {
     return brainsBusket;
   }
 }
